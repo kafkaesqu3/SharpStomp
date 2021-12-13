@@ -12,12 +12,11 @@ This .NET program overwrites file create/modify times in .NET. It does so using 
 
 `Timestomp.exe C:\targetfile.exe -set CreateDate (like YYYY-MM-DDTHH:mm:ss)`
 
+`Timestomp.exe C:\targetfile.exe -set 2018-08-18T07:22:16`
+
+
 #### Set create and modify: 
 
 `Timestomp.exe C:\targetfile.exe -set CreateDate ModifyDate`
-
-#### Examples: 
-
-`Timestomp.exe C:\targetfile.exe -set 2018-08-18T07:22:16`
 
 `Timestomp.exe C:\targetfile.exe -set 2017-08-18T07:22:16 2018-03-14T03:21:11`
