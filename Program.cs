@@ -76,7 +76,7 @@ namespace Timestomp
         }
         static void Main(string[] args)
         {
-            if (args.Length < 3)
+            if (args.Length < 2)
             {
                 Console.WriteLine("Invalid args");
                 PrintUsage();
@@ -85,15 +85,22 @@ namespace Timestomp
 
             string filename = args[0];
             string action = args[1];
-            if (!(action == "-copy" || action == "-set"))
+            if (!(action == "-copy" || action == "-set" || action == "-get"))
             {
                 PrintUsage();
                 return;
             }
 
+            if (action == "-get")
+            {
+                GetTimestamp(filename);
+            }
+
             if (action == "-copy") {
                 var copyfromfile = args[2];
                 CopyTimestampFromFile(filename, copyfromfile);
+                Console.WriteLine("New timestamps {0} Create={1} Modify={2}", new FileInfo(filename).FullName, File.GetCreationTime(filename), File.GetLastWriteTime(filename));
+
             }
 
             if (action == "-set")
@@ -110,13 +117,26 @@ namespace Timestomp
                     string newModify = args[3];
                     SetTimestampOnFile(filename, newCreate, newModify);
                 }
+                Console.WriteLine("New timestamps {0} Create={1} Modify={2}", new FileInfo(filename).FullName, File.GetCreationTime(filename), File.GetLastWriteTime(filename));
+
             }
 
-            Console.WriteLine("New timestamps {0} Create:{1} Modify:{2}", new FileInfo(filename).FullName, File.GetCreationTime(filename), File.GetLastWriteTime(filename));
+        }
+
+        private static bool GetTimestamp(string filename)
+        {
+            if (!File.Exists(filename))
+            {
+                Console.WriteLine("Cannot find {0}", filename);
+                return false;
+            }
+            Console.WriteLine("Existing timestamps {0} Create={1} Modify={2}", new FileInfo(filename).FullName, File.GetCreationTime(filename), File.GetLastWriteTime(filename));
+            return true;
         }
 
         public static void PrintUsage()
         {
+            Console.WriteLine(@"Get timestamp of file: Timestomp.exe C:\windows\explorer.exe -get");
             Console.WriteLine(@"Copy from another file: Timestomp.exe C:\targetfile.exe -copy C:\windows\system32\calc.exe");
             Console.WriteLine(@"Set create: Timestomp.exe C:\targetfile.exe -set CreateDate (like YYYY-MM-DDTHH:mm:ss)");
             Console.WriteLine(@"Set create and modify: Timestomp.exe C:\targetfile.exe -set CreateDate ModifyDate");
