@@ -8,14 +8,14 @@ This .NET program overwrites file create/modify times in .NET. It does so using 
 
 `Timestomp.exe C:\targetfile.exe -copy C:\windows\system32\calc.exe`
 
-#### Set create: 
+#### Set create and modify to the same timestamp: 
 
-`Timestomp.exe C:\targetfile.exe -set CreateDate (like YYYY-MM-DDTHH:mm:ss)`
+`Timestomp.exe C:\targetfile.exe -set Date (like YYYY-MM-DDTHH:mm:ss)`
 
 `Timestomp.exe C:\targetfile.exe -set 2018-08-18T07:22:16`
 
 
-#### Set create and modify: 
+#### Set create and modify to different timestamps: 
 
 `Timestomp.exe C:\targetfile.exe -set CreateDate ModifyDate`
 
